@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "mod ID:block_name1",
+    "mod ID:block_name2",
+    "mod ID:block_name3"
+  ]
+}
