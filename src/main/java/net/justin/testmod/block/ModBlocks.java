@@ -2,6 +2,7 @@ package net.justin.testmod.block;
 
 import net.justin.testmod.TestMod;
 import net.justin.testmod.block.custom.JumpyBlock;
+import net.justin.testmod.block.custom.ZirconLamp;
 import net.justin.testmod.item.ModCreativeModeTab;
 import net.justin.testmod.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -30,6 +31,11 @@ public class ModBlocks {
     public static final RegistryObject<Block> JUMPY_BLOCK = registerBlock("jumpy_block",
             () -> new JumpyBlock(BlockBehaviour.Properties.of(Material.STONE)
                     .strength(6f).requiresCorrectToolForDrops()), ModCreativeModeTab.TEST_TAB);
+
+    public static final RegistryObject<Block> ZIRCON_LAMP = registerBlock("zircon_lamp",
+            () -> new ZirconLamp(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(6f).requiresCorrectToolForDrops()
+                    .lightLevel(state -> state.getValue(ZirconLamp.LIT) ? 15 : 0)), ModCreativeModeTab.TEST_TAB);
 
     public static final RegistryObject<Block> ZIRCON_RAW = registerBlock("zircon_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)
