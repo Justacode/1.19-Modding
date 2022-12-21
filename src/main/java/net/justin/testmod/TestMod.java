@@ -3,6 +3,8 @@ package net.justin.testmod;
 import com.mojang.logging.LogUtils;
 import net.justin.testmod.block.ModBlocks;
 import net.justin.testmod.item.ModItems;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -45,7 +47,7 @@ public class TestMod
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.BLUEBERRY_CROP_BLOCK.get(), RenderType.cutout());
         }
     }
 }
