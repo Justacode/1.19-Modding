@@ -10,9 +10,10 @@
   "block.testmod.deepslate_zircon_ore": "Deepslate Zircon Ore",
 
   "block.testmod.jumpy_block": "Jumpy Block",
-
   "block.testmod.zircon_lamp": "Zircon Lamp",
   "block.testmod.blueberry_crop_block": "Blueberry Crop",
+
+  "entity.minecraft.villager.testmod.jumpy_master": "Jumpy Master",
 
   "itemGroup.testtab": "Zircon Test Tab"
 }

@@ -3,6 +3,7 @@ package net.justin.testmod;
 import com.mojang.logging.LogUtils;
 import net.justin.testmod.block.ModBlocks;
 import net.justin.testmod.item.ModItems;
+import net.justin.testmod.villager.ModVillagers;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -32,12 +33,16 @@ public class TestMod
 
         modEventBus.addListener(this::commonSetup);
 
+        ModVillagers.register(modEventBus);
+
         MinecraftForge.EVENT_BUS.register(this);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-
+        event.enqueueWork(() -> {
+            ModVillagers.registerPOIs();
+        });
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
