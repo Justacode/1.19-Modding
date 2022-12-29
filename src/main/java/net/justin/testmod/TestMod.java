@@ -5,6 +5,8 @@ import net.justin.testmod.block.ModBlocks;
 import net.justin.testmod.item.ModItems;
 import net.justin.testmod.painting.ModPaintings;
 import net.justin.testmod.villager.ModVillagers;
+import net.justin.testmod.world.feature.ModConfiguredFeatures;
+import net.justin.testmod.world.feature.ModPlacedFeatures;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -35,6 +37,9 @@ public class TestMod
         modEventBus.addListener(this::commonSetup);
 
         ModVillagers.register(modEventBus);
+
+        ModConfiguredFeatures.register(modEventBus);
+        ModPlacedFeatures.register(modEventBus);
 
         ModPaintings.register(modEventBus);
 
