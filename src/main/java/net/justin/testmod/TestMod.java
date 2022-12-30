@@ -60,7 +60,7 @@ public class TestMod
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-            ItemBlockRenderTypes.setRenderLayer(ModBlocks.BLUEBERRY_CROP_BLOCK.get(), RenderType.cutout());
+
         }
     }
 }

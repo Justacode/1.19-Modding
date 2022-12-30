@@ -17,5 +17,8 @@
 
   "entity.minecraft.villager.testmod.jumpy_master": "Jumpy Master",
 
-  "itemGroup.testtab": "Zircon Test Tab"
+  "itemGroup.testtab": "Zircon Test Tab",
+
+  "key.category.testmod.test": "Test Mod",
+  "key.testmod.drink_water": "Drink Water"
 }
