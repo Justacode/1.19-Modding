@@ -1,6 +1,9 @@
 package net.justin.testmod.event;
 
 import net.justin.testmod.TestMod;
+import net.justin.testmod.networking.ModMessages;
+import net.justin.testmod.networking.packet.DrinkWaterC2SPacket;
+import net.justin.testmod.networking.packet.ExampleC2SPacket;
 import net.justin.testmod.util.KeyBinding;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -17,7 +20,7 @@ public class ClientEvents {
         @SubscribeEvent
         public static void onKeyInput(InputEvent.Key event) {
             if (KeyBinding.DRINKING_KEY.consumeClick()) {
-                Minecraft.getInstance().player.sendSystemMessage(Component.literal("Pressed a Key!")); //Supposed to be temporary
+                ModMessages.sendToServer(new DrinkWaterC2SPacket());
             }
         }
     }
