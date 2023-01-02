@@ -1,5 +1,6 @@
 package net.justin.testmod.networking.packet;
 
+import net.justin.testmod.thirst.PlayerThirstProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -45,12 +46,21 @@ public class DrinkWaterC2SPacket {
                         0.5F, level.random.nextFloat() * 0.1F + 0.9F);
 
                 //Increase the water level / thirst level of player
+                player.getCapability(PlayerThirstProvider.PLAYER_THIRST).ifPresent(thirst -> {
+                    thirst.addThirst(1);
+                    player.sendSystemMessage(Component.literal("Current Thirst " + thirst.getThirst())
+                            .withStyle(ChatFormatting.AQUA));
+                });
                 //Output the current thirst level
 
             } else {
                 //Notify the player that there is no water around!
                 player.sendSystemMessage(Component.translatable(MESSAGE_NO_WATER).withStyle(ChatFormatting.RED));
                 //Output the current thirst level
+                player.getCapability(PlayerThirstProvider.PLAYER_THIRST).ifPresent(thirst -> {
+                    player.sendSystemMessage(Component.literal("Current Thirst " + thirst.getThirst())
+                            .withStyle(ChatFormatting.AQUA));
+                });
             }
         });
         return true;

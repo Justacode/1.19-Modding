@@ -49,9 +49,9 @@ public class TestMod
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+            ModMessages.register();
             ModVillagers.registerPOIs();
         });
-        ModMessages.register();
 
     }
 
