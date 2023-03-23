@@ -3,11 +3,13 @@ package net.justin.testmod.event;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.justin.testmod.TestMod;
 import net.justin.testmod.item.ModItems;
+import net.justin.testmod.networking.ModMessages;
+import net.justin.testmod.networking.packet.ThirstDataSyncS2CPacket;
 import net.justin.testmod.thirst.PlayerThirst;
 import net.justin.testmod.thirst.PlayerThirstProvider;
 import net.justin.testmod.villager.ModVillagers;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
@@ -18,6 +20,7 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -80,12 +83,23 @@ public class ModEvents {
     @SubscribeEvent //subtracts thirst every 10 secs, for keybind continuation
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if(event.side == LogicalSide.SERVER) {
-            event.player.getCapability(PlayerThirstProvider.PLAYER_THIRST).ifPresent(mod_capability -> {
-                if(mod_capability.getThirst() > 0 && event.player.getRandom().nextFloat() < 0.005f) { //Once Every 10 seconds on Avg
-                    mod_capability.subModCapability(1);
-                    event.player.sendSystemMessage(Component.literal("SubtractedThirst"));
+            event.player.getCapability(PlayerThirstProvider.PLAYER_THIRST).ifPresent(thirst -> {
+                if(thirst.getThirst() > 0 && event.player.getRandom().nextFloat() < 0.005f) { //Once Every 10 seconds on Avg
+                    thirst.subModCapability(1);
+                    ModMessages.sendToPlayer(new ThirstDataSyncS2CPacket(thirst.getThirst()), ((ServerPlayer) event.player));
                 }
             });
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerJoinWorld(EntityJoinLevelEvent event) {
+        if(!event.getLevel().isClientSide()) {
+            if(event.getEntity() instanceof ServerPlayer player) {
+                player.getCapability(PlayerThirstProvider.PLAYER_THIRST).ifPresent(thirst -> {
+                    ModMessages.sendToPlayer(new ThirstDataSyncS2CPacket(thirst.getThirst()), player);
+                });
+            }
         }
     }
 }
