@@ -2,6 +2,8 @@ package net.justin.testmod;
 
 import com.mojang.logging.LogUtils;
 import net.justin.testmod.block.ModBlocks;
+import net.justin.testmod.fluid.ModFluidTypes;
+import net.justin.testmod.fluid.ModFluids;
 import net.justin.testmod.item.ModItems;
 import net.justin.testmod.networking.ModMessages;
 import net.justin.testmod.painting.ModPaintings;
@@ -44,6 +46,9 @@ public class TestMod
 
         ModPaintings.register(modEventBus);
 
+        ModFluids.register(modEventBus);
+        ModFluidTypes.register(modEventBus);
+
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -56,13 +61,12 @@ public class TestMod
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents
-    {
+    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class ClientModEvents {
         @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event)
-        {
-
+        public static void onClientSetup(FMLClientSetupEvent event) {
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_SOAP_WATER.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_SOAP_WATER.get(), RenderType.translucent());
         }
     }
 }
