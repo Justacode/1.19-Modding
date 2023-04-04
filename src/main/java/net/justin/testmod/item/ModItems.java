@@ -5,10 +5,7 @@ import net.justin.testmod.block.ModBlocks;
 import net.justin.testmod.fluid.ModFluids;
 import net.justin.testmod.item.custom.EightBallItem;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemNameBlockItem;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -37,6 +34,10 @@ public class ModItems {
     public static final RegistryObject<Item> SOAP_WATER_BUCKET = ITEMS.register("soap_water_bucket",
             () -> new BucketItem(ModFluids.SOURCE_SOAP_WATER,
                     new Item.Properties().tab(ModCreativeModeTab.TEST_TAB).craftRemainder(Items.BUCKET).stacksTo(1)));
+
+    public static final RegistryObject<Item> KAUPENSWORD = ITEMS.register("kaupensword",
+            () -> new SwordItem(Tiers.DIAMOND, 10, 5f,
+                    new Item.Properties().tab(ModCreativeModeTab.TEST_TAB)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
